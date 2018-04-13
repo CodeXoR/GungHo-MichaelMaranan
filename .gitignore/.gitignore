@@ -1,0 +1,45 @@
+#================================================#
+# Project-specific                               #
+#================================================#
+
+#================================================#
+# Mac Development - Unity Generated              #
+#================================================#
+Temp/
+obj/
+Build/
+Library/
+
+
+#================================================#
+# Visual Studio / MonoDevelop Generated          #
+#================================================#
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+*.orig
+*.app
+*.exe
+*.*_data
+
+
+*.[od]
+
+#================================================#
+# OS Generated                                   #
+#================================================#
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ethumbs.db
+Thumbs.db
