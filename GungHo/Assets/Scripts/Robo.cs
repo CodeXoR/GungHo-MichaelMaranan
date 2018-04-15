@@ -5,7 +5,7 @@ using UnityEngine;
 public class Robo : Character {
 
 	#region CONSTANTS
-	const float moveDamper = 1f, jumpAnimSpeed = 3f, punchAnimSpeed = 1.5f;
+	const float MOVE_DAMPER = 1f, JUMP_ANIM_SPEED = 3f, PUNCH_ANIM_SPEED = 1.5f, MIN_MOVE_SPEED = 1f, MAX_ANIM_SPEED = 3f;
 	#endregion CONSTANTS
 
 	#region PRIVATE VARIABLES
@@ -13,18 +13,19 @@ public class Robo : Character {
 	CharacterController controller;
 	Vector3 moveDirection = Vector3.zero;
 	bool canMove = true, airBorne = false;
-	float speed = 1f, lastAnimSpeed = 1f;
+	float speed = 1f, lastSpeed = 1f, lastAnimSpeed = 1f;
 	#endregion PRIVATE VARIABLES
 
 	#region PUBLIC VARIABLES
 	[RangeAttribute(1,20)]
-	public float moveSpeed = 2f, jumpStrength = 6f, glideSpeed = 4f;
+	public float moveSpeed = 2f, runMultiplier = 2f, jumpStrength = 6f, runJumpMultiplier = 2f, glideSpeed = 4f, runJumpGlideMultiplier = 2f;
 	[RangeAttribute(1,100)]
 	public float gravity = 20f;
 	public LayerMask interactibleLayer;
 	#endregion PUBLIC VARIABLES
 
 	#region PROPERTIES
+	public bool IsRunning { get { return Input.GetButton ("Run"); } }
 	public bool IsAttacking { get { return anim.GetBool ("attack"); } }
 	public bool IsJumping { get; set; }
 	#endregion PROPERTIES
@@ -34,12 +35,22 @@ public class Robo : Character {
 		if (canMove) {
 			float x = Input.GetAxisRaw ("Horizontal");
 			SetOrientation (x);
+			if (Input.GetButtonDown("Run")) {
+				lastSpeed = speed;
+			}
+			if (Input.GetButton ("Run") && !IsJumping && !IsAttacking) {
+				speed = moveSpeed * runMultiplier;
+				SetAnimSpeed (speed);               
+			} 
+			else if (Input.GetButtonUp ("Run")) {
+				speed = lastSpeed;
+			}
 			moveDirection.x = x * speed;
 			anim.SetBool ("walk", x != 0);
 		} 
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (Input.GetButtonDown ("Jump")) {
 			if (controller.isGrounded && !IsAttacking && !IsJumping) {
-				anim.speed = jumpAnimSpeed;
+				SetAnimSpeed (JUMP_ANIM_SPEED);
 				IsJumping = true;
 				this.SetBoolAnimEndWait (anim, "jump");
 				StartCoroutine (PerfectLanding ());
@@ -50,9 +61,9 @@ public class Robo : Character {
 	}
 
 	protected override void Attack () {
-		if(Input.GetKeyDown(KeyCode.P)) {
+		if(Input.GetButtonDown("Attack")) {
 			if (!IsAttacking && !IsJumping) {
-				anim.speed = punchAnimSpeed;
+				SetAnimSpeed (PUNCH_ANIM_SPEED);
 				this.SetBoolAnimEndWait (anim, "attack");
 			}
 		}
@@ -78,30 +89,22 @@ public class Robo : Character {
 
 	#region PRIVATE FUNCTIONS
 	void SetMoveSpeed(float speed) {
-		this.speed = Mathf.Max(speed, 1);
+		this.speed = Mathf.Max(speed, MIN_MOVE_SPEED);
 	}
 
 	void SetWalkSpeed() {
-		SetMoveSpeed (moveSpeed - moveDamper);
-		anim.speed = speed;
+		if (!IsAttacking) {
+			SetMoveSpeed (moveSpeed - MOVE_DAMPER);
+			SetAnimSpeed (speed);
+		}
 	}
 
 	void SetJumpSpeed() {
-		SetMoveSpeed (glideSpeed);
+		SetMoveSpeed (IsRunning ? glideSpeed * runJumpGlideMultiplier : glideSpeed);
 	}
 
-	void ApplyJump () {
-		moveDirection.y = jumpStrength;
-		airBorne = true;
-	}
-
-	void PauseAnim() {
-		lastAnimSpeed = anim.speed;
-		anim.speed = 0f;
-	}
-
-	void ResumeAnim() {
-		anim.speed = lastAnimSpeed;
+	void SetAnimSpeed(float speed) {
+		anim.speed = Mathf.Min (speed, MAX_ANIM_SPEED);
 	}
 
 	void SetMovable(int movable) {
@@ -118,6 +121,20 @@ public class Robo : Character {
 			temp.y = -90;
 		}
 		transform.eulerAngles = temp;
+	}
+
+	void ApplyJump () {
+		moveDirection.y = IsRunning ? jumpStrength * runJumpMultiplier : jumpStrength;
+		airBorne = true;
+	}
+
+	void PauseAnim() {
+		lastAnimSpeed = anim.speed;
+		SetAnimSpeed (0f);
+	}
+
+	void ResumeAnim() {
+		SetAnimSpeed (lastAnimSpeed);
 	}
 	#endregion PRIVATE FUNCTIONS
 
