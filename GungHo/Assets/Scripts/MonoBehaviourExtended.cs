@@ -5,6 +5,30 @@ using UnityEngine;
 
 public static class MonoBehaviourExtended {
 
+	/// <summary>
+	/// Gets or add a component to a component
+	/// e.g. BoxCollider boxCollider = transform.GetOrAddComponent<BoxCollider>();
+	/// </summary>
+	public static T GetOrAddComponent<T> (this Component child) where T: Component {
+		T result = child.GetComponent<T>();
+		if (result == null) {
+			result = child.gameObject.AddComponent<T>();
+		}
+		return result;
+	}
+
+	/// <summary>
+	/// Gets or add a component to a gameObject
+	/// e.g BoxCollider boxCollider = gameObject.GetOrAddComponent<BoxCollider>();
+	/// </summary>
+	public static T GetOrAddComponent<T> (this GameObject child) where T: Component {
+		T result = child.GetComponent<T>();
+		if (result == null) {
+			result = child.gameObject.AddComponent<T>();
+		}
+		return result;
+	}
+
 	public static void SetBoolAnimEndWait(this MonoBehaviour mono, Animator anim, string conditionParam) {
 		mono.StartCoroutine(SetBoolAndWait (anim, conditionParam));
 	}

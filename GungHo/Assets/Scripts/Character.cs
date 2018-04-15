@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour {
 
-	int health;
+	[RangeAttribute(1,999999)]
+	public int health;
 
 	protected abstract void Move ();
 	protected abstract void Attack ();
