@@ -239,7 +239,7 @@ namespace UnityEditor
             }
             material.SetFloat("_Mode", (float)blendMode);
 
-            DetermineWorkflow(MaterialEditor.GetMaterialProperties(new Material[] { material }));
+//            DetermineWorkflow(MaterialEditor.GetMaterialProperties(new Material[] { material }));
             MaterialChanged(material, m_WorkflowMode);
         }
 
@@ -262,13 +262,13 @@ namespace UnityEditor
         void DoNormalArea()
         {
             m_MaterialEditor.TexturePropertySingleLine(Styles.normalMapText, bumpMap, bumpMap.textureValue != null ? bumpScale : null);
-            if (bumpScale.floatValue != 1 && UnityEditorInternal.InternalEditorUtility.IsMobilePlatform(EditorUserBuildSettings.activeBuildTarget))
-                if (m_MaterialEditor.HelpBoxWithButton(
-                        EditorGUIUtility.TextContent("Bump scale is not supported on mobile platforms"),
-                        EditorGUIUtility.TextContent("Fix Now")))
-                {
-                    bumpScale.floatValue = 1;
-                }
+//            if (bumpScale.floatValue != 1 && UnityEditorInternal.InternalEditorUtility.IsMobilePlatform(EditorUserBuildSettings.activeBuildTarget))
+//                if (m_MaterialEditor.HelpBoxWithButton(
+//                        EditorGUIUtility.TextContent("Bump scale is not supported on mobile platforms"),
+//                        EditorGUIUtility.TextContent("Fix Now")))
+//                {
+//                    bumpScale.floatValue = 1;
+//                }
         }
 
         void DoAlbedoArea(Material material)
