@@ -21,13 +21,14 @@ public class Robo : Character {
 	public float moveSpeed = 2f, runMultiplier = 2f, jumpStrength = 6f, runJumpMultiplier = 2f, glideSpeed = 4f, runJumpGlideMultiplier = 2f;
 	[RangeAttribute(1,100)]
 	public float gravity = 20f;
-	public LayerMask interactibleLayer;
 	#endregion PUBLIC VARIABLES
 
 	#region PROPERTIES
 	public bool IsRunning { get { return Input.GetButton ("Run"); } }
 	public bool IsAttacking { get { return anim.GetBool ("attack"); } }
 	public bool IsJumping { get; set; }
+	public bool IsGliding { get; set; }
+	public bool WillFallHigh { get; set; }
 	#endregion PROPERTIES
 
 	#region BASE OVERRIDES
@@ -125,6 +126,7 @@ public class Robo : Character {
 
 	void ApplyJump () {
 		moveDirection.y = IsRunning ? jumpStrength * runJumpMultiplier : jumpStrength;
+		WillFallHigh = IsRunning;
 		airBorne = true;
 	}
 
@@ -141,9 +143,15 @@ public class Robo : Character {
 	#region IENUMERATORS
 	IEnumerator PerfectLanding() {
 		yield return new WaitUntil (() => airBorne);
+		if (WillFallHigh) {
+			yield return new WaitForSeconds (.05f);
+		}
+		IsGliding = true;
 		yield return new WaitUntil (() => controller.isGrounded);
 		IsJumping = false;
 		airBorne = false;
+		WillFallHigh = false;
+		IsGliding = false;
 		ResumeAnim ();
 	}
 	#endregion IENUMERATORS

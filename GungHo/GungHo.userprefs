@@ -1,8 +1,9 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Robo.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DiffuseOutline.shader">
     <Files>
-      <File FileName="Assets/Scripts/Robo.cs" Line="18" Column="17" />
+      <File FileName="Assets/Scripts/Robo.cs" Line="18" Column="1" />
+      <File FileName="Assets/DiffuseOutline.shader" Line="44" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
