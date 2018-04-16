@@ -51,13 +51,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\AnimationHelper.cs" />
-     <Compile Include="Assets\Scripts\AnimatorExtended.cs" />
-     <Compile Include="Assets\Scripts\Character.cs" />
-     <Compile Include="Assets\Scripts\MonoBehaviourExtended.cs" />
-     <Compile Include="Assets\Scripts\Robo.cs" />
-     <Compile Include="Assets\Scripts\RoboCam.cs" />
-     <Compile Include="Assets\Scripts\SideScrollerCam.cs" />
+     <Compile Include="Assets\Scripts\_Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\_Managers\RoboManManager.cs" />
+     <Compile Include="Assets\Scripts\Extensions\AnimatorExtended.cs" />
+     <Compile Include="Assets\Scripts\Extensions\MonoBehaviourExtended.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Character.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Robo.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\RoboCam.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\SideScrollerCam.cs" />
+     <Compile Include="Assets\Scripts\Helpers\AnimationHelper.cs" />
      <None Include="Assets\builtin_shaders-2017.3.1f1\DefaultResourcesExtra\GIDebug\VertexColors.shader" />
      <None Include="Assets\builtin_shaders-2017.3.1f1\DefaultResourcesExtra\Reflect-Glossy.shader" />
      <None Include="Assets\builtin_shaders-2017.3.1f1\DefaultResourcesExtra\Alpha-Bumped.shader" />
