@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 526464f6e4e3042d487e2c955b109da9
+timeCreated: 1523871616
+licenseType: Pro
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: CF Three Dimensions Personal
+  fontNames:
+  - CF Three Dimensions Personal
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
