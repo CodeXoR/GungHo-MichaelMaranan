@@ -54,6 +54,7 @@
      <Compile Include="Assets\builtin_shaders-2017.3.1f1\Editor\StandardParticlesShaderGUI.cs" />
      <Compile Include="Assets\builtin_shaders-2017.3.1f1\Editor\StandardRoughnessShaderGUI.cs" />
      <Compile Include="Assets\builtin_shaders-2017.3.1f1\Editor\StandardShaderGUI.cs" />
+     <Compile Include="Assets\Editor\DiffuseOutlineGUI.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity201741f1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

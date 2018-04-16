@@ -2,7 +2,7 @@
 	Properties {
 		_Color ("Diffuse Color", Color) = (1,1,1,1) 
 		_OutlineColor ("Outline Color", Color) = (1, 1, 1, 1)
-		_Outline ("Outline Width", Range(0,0.1)) = 0.005
+		_OutlineThickness ("Outline Thickness", Range(0,0.1)) = 0.025
 	}
 	SubShader {
 		Pass {
@@ -20,7 +20,7 @@
 				float4 pos : SV_POSITION;
 			};
 
-			float _Outline;
+			float _OutlineThickness;
 			float4 _OutlineColor;
 
 			float4 vert(appdata_base v) : SV_POSITION {
@@ -29,7 +29,7 @@
 				float3 normal = mul((float3x3) UNITY_MATRIX_MV, v.normal);
 				normal.x *= UNITY_MATRIX_P[0][0];
 				normal.y *= UNITY_MATRIX_P[1][1];
-				o.pos.xy += normal.xy * _Outline;
+				o.pos.xy += normal.xy * _OutlineThickness;
 				return o.pos;
 			}
 
@@ -56,4 +56,5 @@
 		ENDCG
 	} 
 	FallBack "Diffuse"
+	CustomEditor "DiffuseOutlineGUI"
 }
