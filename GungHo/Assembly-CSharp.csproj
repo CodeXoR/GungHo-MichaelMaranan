@@ -52,13 +52,21 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\_Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts\_Managers\LevelManager.cs" />
      <Compile Include="Assets\Scripts\_Managers\RoboManManager.cs" />
      <Compile Include="Assets\Scripts\Extensions\AnimatorExtended.cs" />
      <Compile Include="Assets\Scripts\Extensions\MonoBehaviourExtended.cs" />
-     <Compile Include="Assets\Scripts\Gameplay\Character.cs" />
-     <Compile Include="Assets\Scripts\Gameplay\Robo.cs" />
-     <Compile Include="Assets\Scripts\Gameplay\RoboCam.cs" />
-     <Compile Include="Assets\Scripts\Gameplay\SideScrollerCam.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\_Abstracts\Character.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\_Abstracts\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\_Abstracts\Interactible.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\_Abstracts\Weapon.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\_Interfaces\IDamageable.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Camera\RoboCam.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Camera\SideScrollerCam.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Enemies\Wall.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Enemies\WreckingBall.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Players\Robo.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Weapons\Fist.cs" />
      <Compile Include="Assets\Scripts\Helpers\AnimationHelper.cs" />
      <None Include="Assets\builtin_shaders-2017.3.1f1\DefaultResourcesExtra\GIDebug\VertexColors.shader" />
      <None Include="Assets\builtin_shaders-2017.3.1f1\DefaultResourcesExtra\Reflect-Glossy.shader" />

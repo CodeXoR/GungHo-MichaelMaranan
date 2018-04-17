@@ -14,8 +14,8 @@ TagManager:
   - 
   - 
   - Steppable
-  - 
-  - 
+  - MainDestructible
+  - SubDestructible
   - 
   - 
   - 

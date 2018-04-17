@@ -56,8 +56,10 @@ public class Robo : Character {
 				this.SetBoolAnimEndWait (anim, "jump");
 				StartCoroutine (PerfectLanding ());
 			}
-		} 	
-		moveDirection.y -= gravity * Time.deltaTime;
+		} 
+		if (!controller.isGrounded) {
+			moveDirection.y -= gravity * Time.deltaTime;
+		} 
 		controller.Move (moveDirection * Time.deltaTime);
 	}
 
@@ -70,12 +72,14 @@ public class Robo : Character {
 		}
 	}
 
-	protected override void ApplyDamage(int dmg) {
+	protected override void DestroyObj () {
+		
 	}
 	#endregion BASE OVERRIDES
 
 	#region MONOBEHAVIOUR CALLBACKS
-	void Start() {
+	protected override void Start() {
+		base.Start ();
 		anim = GetComponent<Animator> ();
 		controller = GetComponent<CharacterController> ();
 		anim.AddAnimationEvent ("Walk Mod", "SetWalkSpeed", 0f);
