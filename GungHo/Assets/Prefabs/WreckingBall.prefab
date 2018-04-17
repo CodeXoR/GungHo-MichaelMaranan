@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4611235442136164}
   - component: {fileID: 33398072317263786}
   - component: {fileID: 23577826547484436}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4961462836931610}
   - component: {fileID: 33380930824027072}
   - component: {fileID: 23981588012979826}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4605042597244352}
   - component: {fileID: 33656616340675762}
   - component: {fileID: 23875526415970972}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4167912399395808}
   - component: {fileID: 33899497957423016}
   - component: {fileID: 23357339037922798}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 23911639784570412}
   - component: {fileID: 54805910522407176}
   - component: {fileID: 114444456974443692}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: WreckingBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,10 +399,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f0f4cd84fce4ec0a88d27347f7b248, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 8
   fallDamage: 8
-  rotateSpeed: -90
-  startVelocity: {x: 5, y: 0, z: 0}
+  startVelocity: {x: 7, y: 0, z: 0}
 --- !u!135 &135876155275063460
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -14,9 +14,9 @@ public abstract class Interactible : MonoBehaviour, IDamageable {
 		}
 	}
 
-	public void ApplyDamage(int dmg) {
+	public virtual void ApplyDamage(int dmg) {
 		health -= dmg;
-		if (health < 0) {
+		if (health <= 0) {
 			health = 0;
 			DestroyObj ();
 		}

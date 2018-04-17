@@ -29,6 +29,10 @@ public static class MonoBehaviourExtended {
 		return result;
 	}
 
+	public static void SetObjActiveDelayed(this MonoBehaviour mono, bool active, float delay) {
+		mono.StartCoroutine (SetActiveRoutine (mono.gameObject, active, delay));
+	}
+
 	public static void SetBoolAnimEndWait(this MonoBehaviour mono, Animator anim, string conditionParam) {
 		mono.StartCoroutine(SetBoolAndWait (anim, conditionParam));
 	}
@@ -38,5 +42,10 @@ public static class MonoBehaviourExtended {
 		yield return new WaitForEndOfFrame ();
 		yield return new WaitForSeconds (anim.GetCurrentAnimatorClipInfo (0)[0].clip.length / anim.speed);
 		anim.SetBool (conditionParam, false);
+	}
+
+	static IEnumerator SetActiveRoutine(GameObject gObj, bool active, float delay) {
+		yield return new WaitForSeconds (delay);
+		gObj.SetActive (active);
 	}
 }

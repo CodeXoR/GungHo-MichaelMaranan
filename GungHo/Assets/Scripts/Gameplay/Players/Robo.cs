@@ -13,10 +13,13 @@ public class Robo : Character {
 	CharacterController controller;
 	Vector3 moveDirection = Vector3.zero;
 	bool canMove = true, airBorne = false;
-	float speed = 1f, lastSpeed = 1f, lastAnimSpeed = 1f;
+	float speed = 1f, lastSpeed = 1f, lastAnimSpeed = 1f, startHealth;
+	Renderer hitRender;
+	Color normalColor;
 	#endregion PRIVATE VARIABLES
 
 	#region PUBLIC VARIABLES
+	public Weapon weapon;
 	[RangeAttribute(1,20)]
 	public float moveSpeed = 2f, runMultiplier = 2f, jumpStrength = 6f, runJumpMultiplier = 2f, glideSpeed = 4f, runJumpGlideMultiplier = 2f;
 	[RangeAttribute(1,100)]
@@ -73,26 +76,56 @@ public class Robo : Character {
 	}
 
 	protected override void DestroyObj () {
-		
+		GameManager.instance.GameOver = true;
+	}
+
+	public override void ApplyDamage (int dmg) {
+		StartCoroutine (ShowHit ());
+		base.ApplyDamage (dmg);
 	}
 	#endregion BASE OVERRIDES
 
 	#region MONOBEHAVIOUR CALLBACKS
-	protected override void Start() {
-		base.Start ();
+	void Awake() {
 		anim = GetComponent<Animator> ();
 		controller = GetComponent<CharacterController> ();
+		hitRender = GetComponentInChildren<Renderer> ();
+		startHealth = health;
+	}
+
+	protected override void Start() {
+		base.Start ();
 		anim.AddAnimationEvent ("Walk Mod", "SetWalkSpeed", 0f);
 		anim.AddAnimationEvent ("Jump Mod", "SetJumpSpeed", .335f);
+		normalColor = hitRender.materials[4].color;
+	}
+
+	void OnEnable() {
+		GameManager.instance.OnGamePaused += HandleOnGamePaused;
+		GameManager.instance.OnGameOver += HandleOnGameOver;
+	}
+
+	void OnDisable() {
+		GameManager.instance.OnGamePaused -= HandleOnGamePaused;
+		GameManager.instance.OnGameOver -= HandleOnGameOver;
 	}
 
 	void Update() {
 		Move ();
 		Attack ();
+		ShowHealth ();
 	}
 	#endregion MONOBEHAVIOUR CALLBACKS
 
 	#region PRIVATE FUNCTIONS
+	void HandleOnGamePaused(bool paused) {
+		controller.detectCollisions = !paused;
+	}
+
+	void HandleOnGameOver(bool gameOver) {
+		controller.enabled = !gameOver;
+	}
+
 	void SetMoveSpeed(float speed) {
 		this.speed = Mathf.Max(speed, MIN_MOVE_SPEED);
 	}
@@ -134,6 +167,12 @@ public class Robo : Character {
 		airBorne = true;
 	}
 
+	void ApplyPunch(int activate) {
+		if (controller.detectCollisions) {
+			weapon.ActivateWeapon (activate);
+		}
+	}
+
 	void PauseAnim() {
 		lastAnimSpeed = anim.speed;
 		SetAnimSpeed (0f);
@@ -141,6 +180,16 @@ public class Robo : Character {
 
 	void ResumeAnim() {
 		SetAnimSpeed (lastAnimSpeed);
+	}
+
+	void ShowHealth() {
+		
+		if (health <= 0) {
+			normalColor = Color.red;
+		}
+		else if (health <= startHealth / 2f) {
+			normalColor = Color.yellow;
+		} 
 	}
 	#endregion PRIVATE FUNCTIONS
 
@@ -158,5 +207,25 @@ public class Robo : Character {
 		IsGliding = false;
 		ResumeAnim ();
 	}
+
+	IEnumerator ShowHit() {
+		float t = 1f;
+		while (t > 0) {
+			t -= Time.deltaTime;
+			hitRender.materials [4].color = Color.red;
+			yield return null;
+		}
+		hitRender.materials [4].color = normalColor;
+	}
 	#endregion IENUMERATORS
+
+	void OnControllerColliderHit(ControllerColliderHit hit) {
+		MovingPlatform mp = hit.transform.GetComponent<MovingPlatform> ();
+		if (mp != null) {
+			mp.AttachObj (transform);
+		} 
+		else {
+			transform.parent = null;
+		}
+	}
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Wall : Enemy {
 
-	public float explosionForce = 10000f, explosionRadius = 50f, explosionUpwardsModifier = 8f;
-
 	public Collider mainCollider;
 	public Rigidbody[] bodies;
 
-	Vector3 explosionPos;
+	protected override void Start () {
+		base.Start ();
+	}
 
 	void SetBodiesKinematic(bool kinematic) {
 		for (int i = 0; i < bodies.Length; ++i) {
@@ -21,6 +21,7 @@ public class Wall : Enemy {
 		base.DestroyObj ();
 		mainCollider.enabled = false;
 		SetBodiesKinematic (false);
+		Destroy (gameObject, 1f);
 	}
 
 	void OnCollisionEnter(Collision coll) {
@@ -28,11 +29,9 @@ public class Wall : Enemy {
 			Character c = coll.gameObject.GetComponent<Character> ();
 			if (c != null) {
 				c.ApplyDamage (fallDamage);
-				explosionForce /= 4f;
-				explosionRadius /= 4f;
-				explosionUpwardsModifier /= 4f;
 				DestroyObj ();
-			}
+				bodies [0].AddForceAtPosition (Vector3.up * 35f, bodies [0].transform.position, ForceMode.Impulse);
+			} 
 		}
 	}
 }

@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\Gameplay\Camera\SideScrollerCam.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Enemies\Wall.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Enemies\WreckingBall.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Platforms\MovingPlatform.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Players\Robo.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Weapons\Fist.cs" />
      <Compile Include="Assets\Scripts\Helpers\AnimationHelper.cs" />
